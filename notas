@@ -1,0 +1,140 @@
+Un paquete: Es una carpeta que contiene módulos,
+siempre posee el archivo __init__.py
+
+
+Para realizar tipado estatico en Python puedo hacer
+  Tipado para variables
+    a: int = 5
+    b: str = 'Hola'
+    c: bool = True
+  Tipado para listas
+  Tipado para diccionarios
+    from typing import Dict, List
+
+    positives: List[int] = [1, 2, 3, 4, 5]
+    users: Dict[str, int] = {
+
+    }
+  Tipado para funciones
+    def suma(a: int, b: int)  -> int:   //Le indico que las variables de la función son enteros
+                                        //y el resultado de la función debe arrojarme un entero
+
+  El módulo mypy permite trabajar con tipos y mostrar los errores en consola
+  por ejemplo, si lo ejecuto en el bash de la consola, podré ver de manera mucho
+  más clara los errores de tipado que python mostraría de otra manera, se ejecuta así:
+
+    mypy nombre_fichero.py --check-untyped-defs
+    //se instala con pip install mypy y se ejecuta directamente desde la consola
+
+Manejo de excepciones: (raise, try, except and finally)
+  try-except: Intenta algo, sino realiza esta excepción. Se maneja muy similar que un condicional
+  para uso de errores. Ej:
+
+
+    def palindrome(string):
+      return string == string[::-1]
+
+    try:
+      print(palindrome(1))
+    except TypeError:
+      print("Solo se puede ingresar strings")
+
+  raise: se usa para manejar errores que python no ve como errores, como en el siguiente
+  ejemplo buscando un palindromo si el usuario no ingresa nada, el programa va a tomar
+  que se lee igual al derecho y al reves, pero no es lo que buscamos que resuelva, por
+  lo tanto en caso de esa condición podemos poner el raise, para que cuando suceda lo 
+  suba como error:
+
+  def palindrome(string):
+    try:
+      if len(string) == 0:
+        raise ValueError("No se puede ingresar una cadena vacía")
+      return string == string[::-1]
+    except ValueError as ve:
+      print(ve)
+      return False
+      
+  try:
+    print(palindrome(""))
+  except TypeError:
+    print("Solo se puede ingresar strings")
+
+  finally: se utiliza cuando se quiere realizar algo si hay o no un error, evitando
+  errores o cierres abruptos, que pueden ser peligrosos, como en una base de datos
+  en la que se podría perder la información. Ej:
+
+  try:
+    f = open("archivo.text")
+    # hacer cualquier cosa con nuestro archivo
+  finally:
+    f.close()
+
+
+Assert Stament: Un assert es una función de condición que en caso de no cumplirse
+una condición específica lanza un mensaje de error en la ejecución del programa
+indicando lo que se debe hacer. Ej:
+
+  def make_repeater_of(n):
+      def repeater(string):
+          assert type(string) == str, "Solo puede utilizar cadenas"
+          return string * n
+      return repeater
+
+Scope: alcance de las variables
+  alcance global
+  alcance local
+ 
+Nested functions: Funciones anidadas, son funciones que están creadas dentro de otra función. Ej:
+  
+  def main():
+    a = 1
+
+    def nested():
+      print(a)
+
+    nested()
+
+  main()
+  
+Closures: Es una técnica mediante la cuál los valores que están en valores superiores son recordados incluso
+cuando la varialbe superior sea eliminada. Se utiliza normalmente en clases pequeñas para dar elegancia a los 
+métodos y en decoradores. Ej:
+  
+  def main():
+    a = 1
+
+    def nested():
+      print(a)
+
+    return nested()
+
+  my_func = main()
+  my_func()
+
+  del(main)
+
+  my_func()    // a pesar de haber borrado la varialbe main(), el contenido quedó guardado o respaldado en my_func() por lo tanto
+               // al ejecutarla tengo como resultado el mismo valor que había en la función principal que se borró
+
+  Reglas para encontrar un closure
+    -Debemos tener una nested function
+    -La nested function debe referenciar un valor de un scope superior
+    -La función que envuelve a la nested function debe retornarla también
+
+Decoradores: Es un closure especial que tiene la funcionalidad adicional, es una función que recibe como parámetro otra función, 
+para añadirle cosas, y retornar una función diferente, por ejemplo:
+
+//Tenemos el mismo ejemplo de decoradores, el primero envuelve la variable como siempre se ha hecho, el segundo usa el suggar sintax con @
+
+def decorador(func):                                              |def decorador(func):
+    def envoltura():                                              |    def envoltura():
+        print('Esto se añade a mi función original')              |        print('Esto se añade a mi función original')
+        func()                                                    |        func()
+    return envoltura                                              |    return envoltura
+                                                                  |
+                                                                  |
+def saludo():                                                     |@decorador
+    print('¡Hola!')                                               |def saludo():
+saludo = decorador(saludo)                                        |    print('¡Hola!')
+                                                                  |
+saludo()                                                          |Saludo()
