@@ -140,6 +140,14 @@ saludo = decorador(saludo)                                        |    print('¡
 saludo()                                                          |Saludo()
 
 
+La función swapping permite intercambiar valores entre variables de la siguiente forma:
+
+    self.n1 = self.n2                    #Estas dos líneas corresponden
+    self.n2 = self.aux                   #a los valores originales sin swapping
+
+    self.n1, self.n2 = self.n2, self.aux #Ya tiene swapping
+ 
+
 Iteradores: Es una estructura de datos para guardar datos infinitos
   Iterables: son aquellas estructuras de datos divisibles en elementos únicos que se pueden recorrer
   en un ciclo. Cuando hacemos un ciclo python no está recorriendo a ese iterable, lo que está 
@@ -187,3 +195,45 @@ Class EvenNumbers:
             return result
         else:
             raise StopIteration
+
+
+Generadores: Es un "Sugar syntax" de los iteradores. Los iteradores son clases, mientras
+que los generadores son funciones, los generadores son funciones que guardan un estado,
+se usa con la palabra clave "yield" que es equivalente a un return, pero a diferencia de
+este que corta la función para devolver un valor y volver a comenzar desde el principio de
+la función cuando esta es invocada, yield devuelve el valor, pero empieza desde el estado
+en que finalizo, la función sigue guardando las variables de su scope local con los mismos
+valores que tenía, como se puede ver en el siguiente ejemplo:
+
+  def my_gen():
+      """Un ejemplo de generadores"""
+
+      print('Hello world!')
+      n = 0
+      yield n
+
+      print('Hello heaven!')
+      n = 1
+      yield n
+
+      print('Hello hell!')
+      n = 2
+      yield n
+
+  a = my_gen()
+  print(next(a)) #Hello world!
+  print(next(a)) #Hello heaven!
+  print(next(a)) #Hello hell!
+  print(next(a)) StopIteration
+
+  Generator expression: Es una forma resumida de un generador, y guarda la misma sintaxis de
+  un list comprehension, y hace prácticamente lo mismo, con la ventaja que en cantidades muy
+  grandes, no me va a recargar la memoria, sinó que va a generar unicamente los valores
+  que está iterando en cada momento, y nó, todo el listado de elementos generados.
+
+  my_list = [0,1,4,7,9,10]
+
+  my_second_list = [x*2 for x in my_list]  #list comprehension
+  my_second_gen = (x*2 for x in my_list)   #Generator expression
+  
+
