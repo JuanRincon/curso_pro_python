@@ -138,3 +138,52 @@ def saludo():                                                     |@decorador
 saludo = decorador(saludo)                                        |    print('¡Hola!')
                                                                   |
 saludo()                                                          |Saludo()
+
+
+Iteradores: Es una estructura de datos para guardar datos infinitos
+  Iterables: son aquellas estructuras de datos divisibles en elementos únicos que se pueden recorrer
+  en un ciclo. Cuando hacemos un ciclo python no está recorriendo a ese iterable, lo que está 
+  sucediendo de fondo es que ese iterable se debe convertir a un objeto especial llamado iterador.
+  Estos iteradores si se pueden recorrer dentro del lenguaje. Lo que hace el lenguaje internamente
+  es usar una estructura interna llamadad iter para hacer un cast a esos datos iterables, para 
+  convertirlos en un iterador para se recorridos posteriormente, por ejemplo los ciclos for
+  son un alias de la función que convierte los iterables en iteradores, en otras palabras, el 
+  cliclo for es azucar sintactica (sugar sintax) de lo siguiente:
+
+  # Creando un iterador
+
+  my_list = [1,2,3,4,5]
+  my_iter = iter(my_list)
+
+  # Iterando un iterador
+
+  while True:
+      try:
+          element = next(my_iter)
+          print(element)
+      except StopIteration:
+          break
+
+  # Cuando no quedan datos, la excepción StopIteraon es elevada
+  
+¿Cómo construllo un iterador? En el siguiente código tenemos un ejemplo
+
+Class EvenNumbers:
+
+    """Clase que implementa un iterador de todos los números pares, o los números pares
+    hasta un máximo"" "
+
+    def __init__(self, max=None):
+        self.max = max
+
+    def __iter__(self):
+        self.num = 0
+        return self
+
+    def __next__(self):
+        if not self.max or self.num <= self.max:
+            result = self.num
+            self.num += 2
+            return result
+        else:
+            raise StopIteration
