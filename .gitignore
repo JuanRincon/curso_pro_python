@@ -1,2 +1,7 @@
 venv/
+evaluacion.pdf
+.gitignore
+.git
+.mypy_cache/
+
 
