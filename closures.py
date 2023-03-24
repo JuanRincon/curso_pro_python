@@ -1,3 +1,9 @@
+""" Este programa lo que hace es repetir una cadena de
+caracteres, la cantidad de veces que le especifiquemos
+"""
+# Hola 3 -> HolaHolaHola
+# Facundo 2 -> FacundoFacundo
+# Platzi 4 -> PlatziPlatziPlatziPlatzi
 
 def make_repeater_of(n):
     def repeater(string):

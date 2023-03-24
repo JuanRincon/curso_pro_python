@@ -17,6 +17,6 @@ saludo = decorador(saludo)
 def saludo():
     print('¡Hola!')
 
-Saludo()
+saludo()
 
 

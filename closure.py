@@ -4,8 +4,11 @@ def main():
   def nested():
     print(a)
 
-  return nested()
+  return nested
 
 my_func = main()
-main()
+my_func()
 
+del(main)
+
+my_func()

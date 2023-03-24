@@ -1,6 +1,13 @@
 Un paquete: Es una carpeta que contiene módulos,
 siempre posee el archivo __init__.py
 
+El tipado tiene relación a los tipos de datos o datos primitivos entre los que tenemos strings, int, bool, arrays.
+Hay cuatro clasificaciones de tipado:
+  Tipado dinamico 
+  Tipado estático 
+  Tipado debil 
+  Tipado fuerte 
+
 
 Para realizar tipado estatico en Python puedo hacer
   Tipado para variables
@@ -106,7 +113,7 @@ métodos y en decoradores. Ej:
     def nested():
       print(a)
 
-    return nested()
+    return nested
 
   my_func = main()
   my_func()
@@ -236,4 +243,139 @@ valores que tenía, como se puede ver en el siguiente ejemplo:
   my_second_list = [x*2 for x in my_list]  #list comprehension
   my_second_gen = (x*2 for x in my_list)   #Generator expression
   
+Set: Es una colección desordenada de elementos únicos e inmutables, para crear un set se declara
+una variable con los elementos del set entre llaves, se diferencia de los diccionarios porque el
+set no lleva el dos puntos característico de los diccionarios para separar las llaves de los elementos.
 
+  my_set = {3, 4, 5}
+  print("my_set =", my_set)      # my_set = {3,4,5}
+
+  my_set2 = {"Hola", 23.3, False, True}
+  print("my_set2 =", my_set2)   # my_set2 = {False, True, 'Hola', 23.3}
+
+  my_set3 = {3, 3, 2}
+  print("my_set3 =", my_set3)   # my_set3 = {2,3}    El tres que se repite lo sáca de manera automatica,
+                                                     para poder construir el set con elementos únicos
+  my_set4 = {[1, 2, 3], 4}
+  print("my_set4 =", my_set4)   Traceback error # Nos saca un error porque no puede incluir
+                                                  listas porque son un objeto que no es inmutable
+  empty_set = {}
+  print(type(empty_set))         # <class 'dict'>   En este caso se creó un diccionario vacio
+  
+  empty_set = set()
+  print(type(empty_set))         # <class 'set'>    Esta es la forma de construir un set vacio
+  
+
+  Si se quiere convertir un set a otra estructura o viceversa:
+
+  my_list = [1, 1, 2, 3, 4, 4 ,5]
+  my_set = set(my_list)
+  print(my_set)                   # {1, 2, 3, 4, 5}
+
+  my_tuple = ("Hola", "Hola", "Hola", 1)
+  my_set2 = set(my_tuple)
+  print(my_set2)                  # {'Hola', 1}
+
+  Para añadir elementos a un set:
+
+  my_set = {1, 2, 3}              
+  print(my_set)                   # {1, 2, 3}   imprime el set asignado a la variable my_set 
+  my_set.add(4)
+  print(my_set)                   # {1, 2, 3, 4}   ahora muestra un elemento agregado
+  my_set.update([1, 2, 5])
+  print(my_set)                   # {1, 2, 3, 4, 5}  se añaden multiples elementos y elimina los repetidos
+  my_set.update((1, 7, 2), {6, 8})
+  print(my_set)                   # {1, 2, 3, 4, 5, 6, 7, 8} igual al anterior, añade y elimina repetidos
+
+  Para eliminar elementos a un set:
+
+  my_set = {1, 2, 3, 4, 5, 6, 7}
+  print(my_set)                   # {1, 2, 3, 4, 5, 6, 7}
+  my_set.discrad(1)
+  print(my_set)                   # {2, 3, 4, 5, 6, 7}
+  my_set.remove(2)
+  print(my_set)                   # {3, 4, 5, 6, 7}
+  my_set.discard(10)
+  print(my_set)                   # {3, 4, 5, 6, 7}
+  my_set.remove(12)
+  print(my_set)                   # Traceback (most recent call last):
+                                      File "main.py", line 17, in <module>
+                                        my_set.remove(12)
+                                    KeyError:12
+
+  my_set = {1, 2, 3, 4, 5, 6, 7}
+  print(my_set)                   # {1, 2, 3, 4, 5, 6, 7}
+  my_set.pop()
+  print(my_set)                   # {2, 3, 4, 5, 6, 7} Borra un elemento aleatorio
+  my_set.clear()
+  print(my_set)                   # set()   Limpia el set
+  
+  OPERACIONES CON SETS:
+
+  Unión:
+  my_set1 = {3, 4, 5}
+  my_set2 = {5, 6, 7}
+  my_set3 = my_set1 | my_set2
+  print(my_set3)                  # {3, 4, 5, 6, 7}
+
+  Intersección:
+  my_set1 = {3, 4, 5}
+  my_set2 = {5, 6, 7}
+  my_set3 = my_set1 & my_set2
+  print(my_set3)                  # {5}
+
+  Diferencia:
+  my_set1 = {3, 4, 5}
+  my_set2 = {5, 6, 7}
+  my_set3 = my_set1 - my_set2
+  print(my_set3)                  # {3, 4}
+  my_set4 = my_set2 - my_set1
+  print(my_set4)                  # {6, 7}
+
+  Diferencia simétrica:
+  my_set1 = {3, 4, 5}
+  my_set2 = {5, 6, 7}
+  my_set3 = my_set1 ^ my_set2
+  print(my_set3)                  # {3, 4, 6, 7}
+
+  
+Datetime: el modulo datetime se puede importar directamente
+  
+  import datetime
+
+  my_time = datetime.datetime.now()
+  print(my_time)                  # 2020-04-30 17:58;38.988349   imprime la fecha y hora actual incluyendo segundo y milesimas
+                                  # Este valor corresponde a lo máquina desde la que se trabaja, o si es un servidor a Universal Cordinator time    
+  my_day = datetime.date.today()
+  print(my_day)
+
+  print(f'Year: {my_day.year}')
+  print(f'Month: {my_day.month}')
+  print(f'Day: {my_day.day}')
+
+  FORMATEO DE FECHAS
+
+  Tabla de códigos de formato resumida:
+
+  %Y  Year
+  %m  Month
+  %d  Day
+  %H  Hour
+  %M  Minut
+  %S  Second
+
+  from datetime import datetime   # Cuando se importa así no se tiene que llamar a la clase y al módulo, sólo a la clase que contiene el métodoo
+
+  my_datetime = datetime.now()
+  print(my_datetime)
+
+  my_str = my_datetime.strftime('%d/%m/%Y')
+  print(f'Formato LATAM: {my_str}')
+
+  my_str = my_datetime.strftime('%m/%d/%Y')
+  print(f'Formato USA: {my_str}')
+
+  my_str = my_datetime.strftime('Estamos en el año %Y')
+  print(f'Formato Random: {my_str}')
+
+Garbage Collector: Es una parte del motor de Python que se encarga de borrar las variables u objetos que ya no se usan
